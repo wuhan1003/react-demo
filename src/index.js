@@ -1,0 +1,11 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+// import './index.css';
+// import App from './App';
+import Routers from './pages/index';
+import registerServiceWorker from './registerServiceWorker';
+import 'src/assets/styles/iconfont.css';
+import 'src/assets/styles/common.css';
+import 'src/assets/styles/components.scss';
+ReactDOM.render(<Routers/>, document.getElementById('root'));
+registerServiceWorker();
