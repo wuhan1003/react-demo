@@ -59,23 +59,31 @@ table { border-collapse: collapse; border-spacing: 0; }
   font-size:12px;
 }
 @media (min-width:321px) and (max-width:375px) {
-  html{ font-size:14px;}
+  html{ font-size:10px;}
 }
 @media (min-width:376px) and (max-width:414px) {
-  html{ font-size:14px;}
+  html{ font-size:10px;}
 }
 @media (min-width:415px) and (max-width:639px) {
-  html{ font-size:14px;}
+  html{ font-size:10px;}
 }
 @media (min-width:640px) and (max-width:767px) {
-  html{ font-size:14px;}
+  html{ font-size:10px;}
 }
 @media (min-width:768px) and (max-width:992px) {
-  html{ font-size:14px;}
+  html{ font-size:10px;}
 }
 @media (min-width:993px) and (max-width:1200px) {
-  html{ font-size:14px;}
+  html{ font-size:10px;}
 }
 @media screen and (min-width:1201px){
-  html{ font-size:14px;}
+  html{ font-size:10px;}
+}
+
+body{ font-size:14px; }
+
+
+
+.form-container{
+  width:100%; padding:0 2vw;box-sizing:border-box; margin-top:10vh;
 }
