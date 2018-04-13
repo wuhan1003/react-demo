@@ -87,3 +87,6 @@ body{ font-size:14px; }
 .form-container{
   width:100%; padding:0 2vw;box-sizing:border-box; margin-top:10vh;
 }
+.form-footer{ 
+  margin-top:3rem; padding:0 2rem; box-sizing:border-box;
+}
