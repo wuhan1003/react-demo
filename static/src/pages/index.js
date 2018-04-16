@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Login from './login';
 import Register from './register';
+import Chat from './chat';
 function Nofound ( props ){
     return <div>404</div>
 }
@@ -34,6 +35,7 @@ const routers = () => (
             <Route exact path = "/" component = { Index } />
             <Route path = "/login" component = { Login } />
             <Route path = "/register" component = { Register } />
+            <Route path = "/chat" component = { Chat } />
             <Route path = "*" component = { Nofound } />
         </Switch>
     </Router>

@@ -23,9 +23,11 @@ class Login extends Component {
         this.userName.input.focus();
         
     }
-    testAjax = e => { 
+    testAjax = event => { 
+        event.stopPropagation();      
+        event.preventDefault();
         axios({
-            url:'./test',
+            url:'./api/test',
             method:'get',
             params:{name:'aaa',age:'30'}
         }).then(res=>{

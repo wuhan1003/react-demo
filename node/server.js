@@ -11,7 +11,7 @@ const server = function(){
 
         res.writeHead(200,{'content-type':'text/plain,chatset="utf-8"'});
         const query = querystring.parse(uri.query);
-
+        console.log('query',query)
         res.end(util.inspect(query));
     }).listen(8090,err=>{
         if(err){
