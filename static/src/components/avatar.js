@@ -1,22 +1,34 @@
-import  PropTyeps  from 'prop-types';
-function Avatar( props ){
-    return(
-        <section className = "components-avatar">
-            <img 
-                src = { props.url } 
-                width = { props.width }
-                height = { props.height }
-                srcset = { props.srcset } 
-                sizes = { props.sizes } />
-        </section>
-    )
+import React, { Component } from 'react';
+import  PropTypes  from 'prop-types';
+class Avatar extends Component {
+    constructor( props ){
+        super(props);
+        // this.state = {
+        //     imgSrc : require(this.props.src)
+        // }
+    }
+    componentWillMount(){
+        console.log( this.props.src )
+    }
+    render(){
+        return(
+            <section className = "components-avatar">
+                <img 
+                    src = {this.props.src}
+                    width = { this.props.width }
+                    height = { this.props.height }
+                    srcSet = { this.props.srcset } 
+                    sizes = { this.props.sizes } />
+            </section>
+        )
+    }
 }
-Avatar.propTyeps = {
-    // url:PropTypes.string.isRequired,
-    url:PropTypes.oneOftype([
-        PropTypes.isRequired,
-        PropTypes.string
-    ])
+Avatar.propTypes = {
+    src:PropTypes.string.isRequired,
+    // url:PropTypes.oneOftype([
+    //     PropTypes.isRequired,
+    //     PropTypes.string
+    // ])
 }
 
 export default Avatar;
