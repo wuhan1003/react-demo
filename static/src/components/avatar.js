@@ -4,10 +4,10 @@ function Avatar( props ){
         <section className = "components-avatar">
             <img 
                 src = { props.url } 
-                width = { this.props.width }
-                height = { this.props.height }
-                srcset = { this.props.srcset } 
-                sizes = {this.props.sizes } />
+                width = { props.width }
+                height = { props.height }
+                srcset = { props.srcset } 
+                sizes = { props.sizes } />
         </section>
     )
 }
@@ -18,3 +18,5 @@ Avatar.propTyeps = {
         PropTypes.string
     ])
 }
+
+export default Avatar;
