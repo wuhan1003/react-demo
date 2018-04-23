@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Avatar from '@/avatar';
+import Badge from '@/badge';
 class ChatList extends Component {
     constructor( props ){
         super( props );
@@ -8,15 +9,17 @@ class ChatList extends Component {
     }
     render(){
         return(
-            <section>
+            <section className = "list-container">
                 <ul>
                     <li>
-                        <Avatar />
+                        <Avatar src = "assets/images/a.jpg" className = "test" />
                         <section>
-                            <p><strong></strong></p>
-                            <p></p>
+                            <p><strong>{ this.props.title }</strong></p>
+                            <p>{ this.props.desc }</p>
                         </section>
-                        <Badge />
+                        {
+                            this.props.number && <Badge number = { this.props.number } />
+                        }
                     </li>
                 </ul>
             </section>
@@ -25,3 +28,5 @@ class ChatList extends Component {
         )
     }
 }
+
+export default ChatList;

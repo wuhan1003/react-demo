@@ -1,5 +1,11 @@
+import React from 'react';
+import  PropTypes  from 'prop-types';
 function Badge( props ){
     return(
-        <span>props.number</span>
+        <span className ="components-badge">{ props.number }</span>
     )
 }
+Badge.propTypes = {
+    number:PropTypes.number,
+}
+export default Badge;

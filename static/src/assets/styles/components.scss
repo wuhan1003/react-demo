@@ -10,6 +10,18 @@ $f_m:#fff;
 $b_m:#e1e1e1; 
 $b_waring: #DF453E; //警告颜色
 
+
+
+@mixin flex($horizontal:center,$vertical:center){
+    display:flex;justify-content:$horizontal; align-items:$vertical;
+}
+// @mixin bg_rgba{
+//     background-color:rgba()
+// }
+
+
+
+
 .header{
     width:100%;height:4.2rem;background-color:$mc;display:flex; justify-content:center;
     align-items:center;
@@ -101,27 +113,71 @@ html,body{
 .live-container{
 width:100%;height:100%; padding-top:35px; box-sizing:border-box; background:url('../images/bg.png') left top no-repeat;background-size:100% 100%;position:relative;
     & .live-guest{
-        width:100%; z-index:1; padding:0 10px;
+        width:100%; z-index:1; padding:0 10px; box-sizing:border-box;
         display:flex; justify-content:space-between; align-items:center;
         & .room-owner{
-            width:40vw;margin-left:10px;position:relative; border-radius:5px;background-color:rgba(0,0,0,0.4); height:45px;
-            & .owner-img  {position:absolute; top:-5px;left:-10px; display:block; border-radius:50%;overflow:hidden; background-color:#fff; padding:2px; box-sizing:border-box;
-                width:15vw; height:15vw;
+            flex:0 0 14rem; width:14rem; height:3.7rem;margin-left:1rem;position:relative; border-radius:5px;background-color:rgba(0,0,0,0.4);
+            display:flex; justify-content:center; align-items:center;
+            & .owner-img  {position:absolute; top:-0.4rem;left:-1rem; display:block; border-radius:50%;overflow:hidden; background-color:#fff; padding:2px; box-sizing:border-box;
+                width:4.5rem; height:4.5rem;
                 & img { width:100%; height:100%; display:block; border-radius:50%; }
             }
-            & .owner-info{ width:100%; padding-left:13vw;box-sizing:border-box;color:#fff;
-                & h4 { line-height:25px; font-size:1.6rem; font-weight:normal;}
-                & p { line-height:20px; font-size:1.2rem;}
+            & .owner-info{ flex:1 1 auto; padding-left:4.1rem;box-sizing:border-box;color:#fff;
+                & h4 { line-height:1.6rem; font-size:1.4rem; font-weight:normal;}
+                & p { line-height:1.2rem; font-size:1.2rem;}
+            }
+            & .like-btn{
+                display:block; width:2.6rem; height:2.6rem; border-radius:5px; margin-right:.3rem;
+               outline:none; border:none;background-color:$live_m; color:#fff; line-height:2.6rem;
+            }
+        }
+        & .guest-list{
+            flex:1 1 auto;display:flex; justify-content:flex-end; align-items:center;margin-left:1rem;
+            position:relative;z-index:1;
+            & section{flex:0 0 auto; height:3.7rem;overflow:hidden; 
+                &>ul{width:100px; height:100%;overflow-x:scroll;white-space:nowrap;
+                    font-size:0;
+                    & > li {
+                        width:3.7rem; height:3.7rem;margin-right:.5rem; display:inline-block;vertical-align:top; font-size:1rem; border-radius:50%; overflow:hidden;
+                        & a,
+                        & img {
+                            width:100%; height:100%; border-radius:50%;
+                        }
+                    }
+                    & ::-webkit-scrollbar{ display:none;}
                 
-            
+                }
+                & ::-webkit-scrollbar{ display:none;}
+            }
+            & button{
+               flex:0 0 3.7rem; display:block; border:none; outline:none; width:3.7rem; height:3.7rem; font-size:2rem; color:#fff; font-weight:bold;background-color:transparent;
             }
         }
         
     
     
     }
+    & .room-title{
+        width:100%;color:#fff; margin-top:2rem;padding-left:1rem;box-sizing:border-box;position:relative;
+        & h3{
+            display:inline-block; vertical-align:top;height:3.2rem; padding:0 1.5rem; box-sizing:border-radius; 
+            border-radius:1.6rem; line-height:3.2rem; background-color:rgba(245,92,122,0.4);font-weight:normal;
+        }
+    }
+
+    & #test_live{
+        width:100%; height:100vh;position:fixed;z-index:0; left:0; top:0;
+    }
+
+}
 
 
 
 
+.components-badge{
+    display:inline-block;vertical-align:top; background-color:$mc; color:#fff; height:2.4rem;line-height:2.4rem; min-width:2.4rem; text-align:center; 
+     border-radius:1.2rem;
+}
+.list-container{
+    padding:0 1rem; box-sizing:border-box;
 }

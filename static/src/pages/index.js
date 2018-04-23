@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './login';
 import Register from './register';
 import Chat from './chat';
-import Header from '@/header';
+// import Header from '@/header';
 import Live from './live';
 function Nofound ( props ){
     return <div>404</div>

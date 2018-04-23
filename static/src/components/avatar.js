@@ -12,9 +12,9 @@ class Avatar extends Component {
     }
     render(){
         return(
-            <section className = "components-avatar">
+            <section className = {`components-avatar ${this.props.className }`  }>
                 <img 
-                    src = {this.props.src}
+                    src = { require('../' + this.props.src ) }
                     width = { this.props.width }
                     height = { this.props.height }
                     srcSet = { this.props.srcset } 
