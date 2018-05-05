@@ -7,20 +7,33 @@ class ChatList extends Component {
         this.state = {}
 
     }
+    componentWillMount(){
+        console.log(this.props.listData )
+    }
     render(){
         return(
             <section className = "list-container">
                 <ul>
-                    <li>
-                        <Avatar src = "assets/images/a.jpg" className = "test" />
-                        <section>
-                            <p><strong>{ this.props.title }</strong></p>
-                            <p>{ this.props.desc }</p>
-                        </section>
-                        {
-                            this.props.number && <Badge number = { this.props.number } />
-                        }
-                    </li>
+                    {
+                        this.props.listData.map((item,key)=>(
+
+                                <li key = { key }>
+                                    <Avatar src = { item.img } className = "extra-avatar" />
+                                    <section>
+                                        <h3>{ item.name}</h3>
+                                        <p>{ item.title }</p>
+                                    </section>
+                                    {
+                                        item.number && <Badge number = { item.number } />
+                                    }
+                                </li>
+                            )
+                        )
+                    }
+
+
+
+                    
                 </ul>
             </section>
 

@@ -13,13 +13,13 @@ class Form extends Component {
         )
     }
 }
-const Form['Item'] = props => {
-    <section>
+// const Form['Item'] = props => {
+//     <section>
         
 
-    </section>
+//     </section>
 
 
-}
+// }
 
 export default Form;

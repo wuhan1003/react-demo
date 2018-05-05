@@ -5,7 +5,10 @@ class Button extends Component {
         super( props ); 
         this.state = {}
     }
-    onClick = e => { 
+    onClick = e => {
+        // e.stopPropagation();
+        e.preventDefault();
+         
         if( this.props.onClick ){
             this.props.onClick( e );
         }
@@ -23,7 +26,7 @@ class Button extends Component {
     }
 }
 Button.defaultProps = {
-    
+    value:'确定',
 }
 
 

@@ -33,6 +33,7 @@ class Input extends Component {
                     onChange = { this.props.onChange }
                     onBlur = { this.onBlur }
                     onFocus = { this.onFocus }
+                    name = {this.props.name }
                     ref = { input => this.input = input }
                 />
                 <Tips tips = { this.props.tips } show = { this.state.show } className = "top" />  

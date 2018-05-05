@@ -2,17 +2,23 @@ const http = require('http');
 const util = require('util');
 const url = require('url');
 const querystring = require('querystring');
+const router = require('./src/router');
 const options = {
 
 }
-const server = function(){
+const server = function(conn){
     http.createServer((req,res)=>{
-        const uri = url.parse(req.url);
 
-        res.writeHead(200,{'content-type':'text/plain,chatset="utf-8"'});
-        const query = querystring.parse(uri.query);
-        console.log('query',query)
-        res.end(util.inspect(query));
+        router(req,res,conn);
+        // res.end();
+
+
+        // const uri = url.parse(req.url);
+
+        // res.writeHead(200,{'content-type':'text/plain,chatset="utf-8"'});
+        // const query = querystring.parse(uri.query);
+        // console.log('query',query)
+        // res.end(util.inspect(query));
     }).listen(8090,err=>{
         if(err){
             console.log('服务器开启错误',err)

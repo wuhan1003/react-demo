@@ -5,13 +5,26 @@ import ChatList from '@/chat-list';
 class Chat extends Component {
     constructor( props ){
         super(props);
-        this.state = {}
+        this.state = {
+            listData:[
+                {
+                    name:'test',
+                    title:' this is a test project ',
+                    img:'assets/images/a.jpg',
+                },
+                {
+                    name:'test',
+                    title:' this is a test project ',
+                    img:'assets/images/a.jpg',
+                }
+            ]
+        }
     }
     render(){
         return(
             <section>
                 <Header title = "好友列表" { ...this.props } />
-                <ChatList data = { this.state.listData } />
+                <ChatList listData = { this.state.listData } />
             </section>
         )
     }
