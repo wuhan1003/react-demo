@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Login from './login';
 import Register from './register';
 import Chat from './chat';
@@ -46,12 +47,49 @@ class Index extends Component {
 }
 
 
+class Wrap extends Component{
+    constructor( props ){
+        super( props );
+        this.state = {}
+    }
+    componentWillMount(){
+        console.log('redux', this.props );
+    }
+    render(){
+        return(
+            // <Component {...this.props } />
+            <div>test</div>
+        )
+    }
+
+
+}
+
+const mapStateToProps = (state,ownProps)=>{
+    return state;
+}
+Wrap = connect(mapStateToProps)(Wrap);
+
+
+function wrap(component){
+
+
+
+
+
+
+}
+
+
+
+
+
 
 
 const routers = () => (
     <Router>
         <Switch>
-            <Route exact path = "/" component = { Index } />
+            <Route exact path = "/" component = { Wrap } />
             <Route path = "/login" component = { Login } />
             <Route path = "/register" component = { Register } />
             <Route path = "/chat" component = { Chat } />

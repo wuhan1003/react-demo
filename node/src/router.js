@@ -16,14 +16,12 @@ function router(req,res,conn){
             });
             req.on('end',function(){
                 params = qs.parse(params);
-                console.log('post请求参数',params);
                 const {userName, password, email } = params;
-                console.log(userName);
-                // let sql = `INSERT INTO user(username,password,email) VALUES (${userName},${password},${email})`;
+                let sql = `INSERT INTO user(username,password,email) VALUES ('${userName}','${password}','${email}')`;
                 // const sql = 'INSERT INTO user (username,email,password) VALUES ("'+ userName + '","' + password+ '","'+ email+'")';
-                    const sql = 'INSER INTO user (username,password,email) VALUES (?,?,?)';
-                    const addData = [userName,password,email];
-                conn.query(sql,addData,function(err,result){
+                    // const sql = 'INSER INTO user (username,password,email) VALUES (?,?,?)';
+                    // const addData = [userName,password,email];
+                conn.query(sql,function(err,result){
                     if(err){
                         console.log('数据插入失败',err)
                         res.end('插入数据失败')
@@ -34,10 +32,6 @@ function router(req,res,conn){
                     }
                 })
             });
-
-
-
-
         }
     }
     

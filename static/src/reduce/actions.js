@@ -1,0 +1,1 @@
+const LOGIN_STATE = 'LOGIN_SATAE';
