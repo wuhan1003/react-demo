@@ -3,13 +3,12 @@ const util = require('util');
 const url = require('url');
 const querystring = require('querystring');
 const router = require('./src/router');
-const options = {
 
-}
-const server = function(conn){
+
+const server = function(){
     http.createServer((req,res)=>{
 
-        router(req,res,conn);
+        router(req,res);
         // res.end();
 
 

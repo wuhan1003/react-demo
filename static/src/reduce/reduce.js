@@ -1,16 +1,21 @@
 import { combineReducers } from 'redux';
-const LOGIN_STATE = 'LOGINSTATE';
-const login_state = (state,action) => {
-    if(!state){
-        return {'LOGIN_STATE':false}
-    }
+const reducer = (state = {},action)=>{
     switch(action.type){
-        case LOGIN_STATE :
-            return false;
-        default :
-            return true;
+        case "LOGIN_STATE":
+            return Object.assign({},state,{loginStatus:action.status});
+            // break;
+        default:
+            return state;    
     }
 }
+const test = (state = {},action) =>{
 
-const reduces = combineReducers({login_state});
+    switch(action.type){
+        case "TEST":
+            return {test:'测试redux'};
+        default :
+            return state;
+    }
+}
+const reduces = combineReducers({reducer,test});
 export default  reduces;

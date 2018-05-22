@@ -3,17 +3,20 @@ import Header from '@/header';
 import Input from '@/input';
 import Button from '@/buttons';
 import axios from 'axios';
+const qs = require('querystring');
 class Login extends Component {
     constructor(props){
         super( props );
         this.state = {
-            
+            username:'',
+            password:''
         }
     }
-    // getValue = event => {
-    //     console.log( event.target )
-    //     console.log( event.target.value )
-    // }
+    getValue = ( e, state) => {
+        this.setState({
+            [state]:e.target.value
+        })
+    }
     blur = event =>{
         console.log( event.target.value )
     }
@@ -26,10 +29,17 @@ class Login extends Component {
     testAjax = event => { 
         event.stopPropagation();      
         event.preventDefault();
+        const params = {
+            username: this.state.username,
+            password: this.state.password
+        }
+
+
+
         axios({
-            url:'./api/test',
-            method:'get',
-            params:{name:'aaa',age:'30'}
+            url:'./api/sign',
+            method:'post',
+            data:qs.stringify(params)
         }).then(res=>{
             console.log(res)
         }).catch(err=>console.log(err))
@@ -45,16 +55,17 @@ class Login extends Component {
                             type = "text" 
                             placeholder = "请输入用户名" 
                             icon = "icon-account"
-                            onChange = { this.getValue }
-                            onBlur = { this.blur }
+                            onChange = { e => { this.getValue(e,'username') } }
+                            // onBlur = { this.blur }
                             ref = { input => this.userName = input }
                             tips = "请输入用户名"
-                            pattern = { /\d/ }
+                            pattern = { /\w/ }
                         />
                         <Input 
                             type = "password" 
                             placeholder = "请输入用户名" 
                             icon = "icon-password"
+                            onChange = {e=>{this.getValue(e,'password')}}
                         />
                         <section className = "form-footer">
                             <Button value = "登录" size = "large" onClick = { this.testAjax } />
@@ -69,4 +80,4 @@ class Login extends Component {
 
 }
 
-export default Login ;
+export default Login;

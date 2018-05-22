@@ -1,12 +1,5 @@
 const server = require('./server');
-const conn = require('./conn');
-conn.connect(err=>{
-    if(err){
-        console.log('连接数据库错误',err)
-    }else{
-        console.log('连接数据库成功')
-    }
-});
+
 // conn.query(
 //     'SELECT * FROM user',(error,result,fields)=>{
 //         if(error){
@@ -17,4 +10,4 @@ conn.connect(err=>{
 //         }
 //     }
 // );
-server(conn);
+server();
