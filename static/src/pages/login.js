@@ -3,14 +3,22 @@ import Header from '@/header';
 import Input from '@/input';
 import Button from '@/buttons';
 import axios from 'axios';
+import { connect } from 'react-redux';
 const qs = require('querystring');
 class Login extends Component {
     constructor(props){
         super( props );
         this.state = {
             username:'',
-            password:''
+            password:'',
+            loginState:this.props.Login
         }
+    }
+    componentWillMount(){
+        console.log(this.props);
+    }
+    componentDidMount(){
+        console.log(this.state.loginState)
     }
     getValue = ( e, state) => {
         this.setState({
@@ -41,7 +49,10 @@ class Login extends Component {
             method:'post',
             data:qs.stringify(params)
         }).then(res=>{
-            console.log(res)
+            if(res.data.data.code === 0){
+
+            }
+            
         }).catch(err=>console.log(err))
 
     }
@@ -72,6 +83,7 @@ class Login extends Component {
                         </section>     
                     </form>
                 </div>
+                <div>{this.state.loginState.toString()}</div>
             </section>
             
             
@@ -79,5 +91,13 @@ class Login extends Component {
     }
 
 }
+
+
+const mapStateToProps = (state,ownprops)=>{
+    return state.login;
+}
+
+Login = connect(mapStateToProps)(Login);
+
 
 export default Login;

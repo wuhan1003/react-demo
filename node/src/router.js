@@ -2,6 +2,8 @@ const util = require('util');
 const url = require('url');
 const qs = require('querystring');
 const EventEmitter = require('events');
+const zlib = require('zlib');
+const http = require('http');
 // const conn = require('../conn');
 // conn.connect(err=>console.log('数据库连接失败',err));
 const conn = require('../conn');
@@ -12,8 +14,15 @@ conn.connect(err=>{
         console.log('连接数据库成功')
     }
 });
-
-
+const options = {
+    host :'127.0.0.1',
+    port:8090,
+    method:'POST',
+    path:'/sign',
+    headers:{
+        'content-type':'text/plain'
+    }
+}
 
 
 
@@ -48,22 +57,36 @@ function f(callback){
 
 
 let Routers = new EventEmitter();
+let resData = {};
 Routers.on('/sign',(req,res)=>{
-    let params = '';
+    let output = '', params = '';
+    if(req.headers['content-encoding']==='gzip'){
+        let gunzip = zlib.createGunzip();
+        req = req.pipe(gunzip);
+    }
     req.on('data',chunk =>params += chunk);
     req.on('end',()=>{
         const { username, password } = qs.parse(params);        
         //MySQL 的 WHERE 子句的字符串比较是不区分大小写的。 你可以使用 BINARY 关键字来设定 WHERE 子句的字符串比较是区分大小写的。
         const sql = `SELECT id, username, password FROM user WHERE BINARY 
                         username = '${username}' AND 
-                        password = '${password}' LIMIT 1
+                        password = '${password}'
                         `;
         conn.query(sql,(err,result)=>{
             if(err){
-                res.end(util.inspect(err));
+                res.writeHead(504);
             }else{
-                res.end(util.inspect(result));
+                resData.code  = 0;
+                if(result.length === 0){
+                    resData.msg = "用户名或密码不正确";
+                }else{
+                    resData.msg = '登录成功';
+                    resData.data = Object.assign({},result[0]);
+                }
+                res.writeHead(200,{'Content-Type':'text/html;charset = utf8'});
             }
+            
+            res.end(JSON.stringify(resData),'utf8');
         })
     })
 });
@@ -75,7 +98,7 @@ Routers.on('/register',(req,res)=>{
         params += chunk;
     });
     req.on('end',function(){
-        const {userName, password, email } = params;
+        const {userName, password, email } = qs.parse(params);
         let sql = `INSERT INTO user(username,password,email) VALUES ('${userName}','${password}','${email}')`;
         // const sql = 'INSERT INTO user (username,email,password) VALUES ("'+ userName + '","' + password+ '","'+ email+'")';
             // const sql = 'INSER INTO user (username,password,email) VALUES (?,?,?)';
@@ -86,7 +109,7 @@ Routers.on('/register',(req,res)=>{
                 res.end('插入数据失败')
             }else{
                 console.log('插入数据成功',result);
-                res.writeHead(200,{'content-type':'text/plain'});
+                res.writeHead(200,{'content-type':'text/html,charset=utf-8'});
                 res.end('这是请求成功返回数据')
             }
         })
@@ -123,7 +146,8 @@ function router(req,res){
     //     }
     // });
 
-    
+ 
+
 
     
 

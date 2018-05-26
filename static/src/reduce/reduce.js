@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-const reducer = (state = {},action)=>{
+const login = (state = {'Login':false},action)=>{
     switch(action.type){
         case "LOGIN_STATE":
             return Object.assign({},state,{loginStatus:action.status});
@@ -17,5 +17,5 @@ const test = (state = {},action) =>{
             return state;
     }
 }
-const reduces = combineReducers({reducer,test});
+const reduces = combineReducers({login,test});
 export default  reduces;
