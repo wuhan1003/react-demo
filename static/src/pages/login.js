@@ -4,6 +4,7 @@ import Input from '@/input';
 import Button from '@/buttons';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { LOGIN_STATE } from '../reduce/actions';
 const qs = require('querystring');
 class Login extends Component {
     constructor(props){
@@ -18,7 +19,7 @@ class Login extends Component {
         console.log(this.props);
     }
     componentDidMount(){
-        console.log(this.state.loginState)
+        // console.log(this.state.loginState)
     }
     getValue = ( e, state) => {
         this.setState({
@@ -42,14 +43,19 @@ class Login extends Component {
             password: this.state.password
         }
 
-
+        const { changeLogin } = this.props;
 
         axios({
             url:'./api/sign',
             method:'post',
             data:qs.stringify(params)
         }).then(res=>{
-            if(res.data.data.code === 0){
+            console.log(res.data.code )
+            if(res.data.code === 0){
+                
+                changeLogin(LOGIN_STATE);
+                this.setState({loginState:this.props.Login});
+
 
             }
             
@@ -96,8 +102,12 @@ class Login extends Component {
 const mapStateToProps = (state,ownprops)=>{
     return state.login;
 }
-
-Login = connect(mapStateToProps)(Login);
+const mapDispatchToProps = (dispatch,props)=>{
+    return {
+        changeLogin:status=>dispatch(status)
+    }
+}
+Login = connect(mapStateToProps,mapDispatchToProps)(Login);
 
 
 export default Login;

@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 const login = (state = {'Login':false},action)=>{
     switch(action.type){
         case "LOGIN_STATE":
-            return Object.assign({},state,{loginStatus:action.status});
+            console.log(`change login`);
+            return Object.assign({},state,{Login:action.status});
             // break;
         default:
             return state;    
