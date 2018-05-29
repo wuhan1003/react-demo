@@ -82,6 +82,7 @@ Routers.on('/sign',(req,res)=>{
                 }else{
                     resData.msg = '登录成功';
                     resData.data = Object.assign({},result[0]);
+                    res.setHeader('Set-Cookie',`{id:${resData.data.id}}`);
                 }
                 res.writeHead(200,{'Content-Type':'text/html;charset = utf8'});
             }
