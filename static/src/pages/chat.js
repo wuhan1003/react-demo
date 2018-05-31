@@ -20,6 +20,12 @@ class Chat extends Component {
             ]
         }
     }
+    componentWillMount(){
+        const { history } = this.props;
+        if(sessionStorage.getItem('LoginStatus') != 'true'){
+            history.replace('/login');
+        }
+    }
     render(){
         return(
             <section>

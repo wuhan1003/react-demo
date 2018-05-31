@@ -8,7 +8,7 @@ class Avatar extends Component {
         // }
     }
     componentWillMount(){
-        console.log( this.props.src )
+        // console.log( this.props.src )
     }
     render(){
         return(

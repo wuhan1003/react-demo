@@ -3,6 +3,7 @@ const login = (state = {'Login':false},action)=>{
     switch(action.type){
         case "LOGIN_STATE":
             console.log(`change login`);
+            sessionStorage.setItem('LoginStatus','true');
             return Object.assign({},state,{Login:action.status});
             // break;
         default:
