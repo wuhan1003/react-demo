@@ -5,6 +5,12 @@ import Button from '@/buttons';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { LOGIN_STATE } from '../reduce/actions';
+// axios.interceptors.request.use(
+//     config=>{console.log(config);
+//     return config;  //不加这句会报错
+// },
+//     err=>Promise.reject(err)
+// );
 const qs = require('querystring');
 class Login extends Component {
     constructor(props){
@@ -16,7 +22,10 @@ class Login extends Component {
         }
     }
     componentWillMount(){
-        console.log(this.props);
+        const { history } = this.props;
+        if(sessionStorage.getItem('LoginStatus') === 'true'){
+            history.replace('/chat');
+        }
     }
     componentDidMount(){
         // console.log(this.state.loginState)
@@ -43,19 +52,18 @@ class Login extends Component {
             password: this.state.password
         }
 
-        const { changeLogin } = this.props;
+        const { changeLogin,history } = this.props;
 
         axios({
             url:'./api/sign',
             method:'post',
             data:qs.stringify(params)
         }).then(res=>{
-            console.log(res.data.code )
             if(res.data.code === 0){
                 
                 changeLogin(LOGIN_STATE);
                 this.setState({loginState:this.props.Login});
-
+                history.replace('/chat');
 
             }
             

@@ -16,20 +16,13 @@ class Index extends Component {
 
         }
     }
-    componentDidMount(){
-        console.log( routes )
-    }
     render(){
         return (
             <section>
                 <Header title = "首页" { ...this.props } />
-                
-                    
-                        <ul>
-                           { routes.map((route,key) => <li key = { key }>{route.meta && route.meta.text}</li>)}
-                        </ul>
-                    
-                    
+                <ul className ="nav-list">
+                    { routes.map((route,key) => route.meta && <li key = { key }><Link to = {route.path}> {route.meta && route.meta.text}</Link></li>)}
+                </ul>
             </section>
         )
     }
@@ -39,11 +32,10 @@ class Index extends Component {
 
 class Wrap extends Component{
     constructor( props ){
-        super( props );
-        this.state = {}
-    }
-    componentWillMount(){
-        console.log('redux', this.props );
+        super(props)
+   
+   
+   
     }
     render(){
         return(

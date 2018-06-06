@@ -57,13 +57,14 @@ function f(callback){
 
 
 let Routers = new EventEmitter();
-let resData = {};
+
 Routers.on('/sign',(req,res)=>{
+    let resData = {};
     let output = '', params = '';
-    if(req.headers['content-encoding']==='gzip'){
-        let gunzip = zlib.createGunzip();
-        req = req.pipe(gunzip);
-    }
+    // if(req.headers['content-encoding']==='gzip'){
+    //     let gunzip = zlib.createGunzip();
+    //     req = req.pipe(gunzip);
+    // }
     req.on('data',chunk =>params += chunk);
     req.on('end',()=>{
         const { username, password } = qs.parse(params);        
@@ -93,28 +94,62 @@ Routers.on('/sign',(req,res)=>{
 });
 Routers.on('/register',(req,res)=>{
     let params = '';
-
+    let resData = {};
     
     req.on('data',function(chunk){
         params += chunk;
     });
     req.on('end',function(){
+        console.log(`params:${params}`)
         const {userName, password, email } = qs.parse(params);
-        let sql = `INSERT INTO user(username,password,email) VALUES ('${userName}','${password}','${email}')`;
-        // const sql = 'INSERT INTO user (username,email,password) VALUES ("'+ userName + '","' + password+ '","'+ email+'")';
-            // const sql = 'INSER INTO user (username,password,email) VALUES (?,?,?)';
-            // const addData = [userName,password,email];
-        conn.query(sql,function(err,result){
+        let SelSql = `SELECT username FROM user WHERE BINARY username = '${userName}'`;
+
+        conn.query(SelSql,(err,result)=>{
             if(err){
-                console.log('数据插入失败',err)
-                res.end('插入数据失败')
-            }else{
-                console.log('插入数据成功',result);
-                res.writeHead(200,{'content-type':'text/html,charset=utf-8'});
-                res.end('这是请求成功返回数据')
+                resData.code = 1;
+                resData.msg = '数据库查询失败';
+            } else {
+                if(result.length === 0 ){
+                    let sql = `INSERT INTO user(username,password,email) VALUES ('${userName}','${password}','${email}')`;
+                    // const sql = 'INSERT INTO user (username,email,password) VALUES ("'+ userName + '","' + password+ '","'+ email+'")';
+                        // const sql = 'INSER INTO user (username,password,email) VALUES (?,?,?)';
+                        // const addData = [userName,password,email];
+                    conn.query(sql,function(err,result){
+                        if(err){
+                            resData.code = 1;
+                            resData.msg = '数据库查询失败，请稍后重试';
+                        }else{
+                            resData.code = 0; 
+                            resData.msg = "用户注册成功";
+                        }
+                    })
+                }else{
+                    resData.code = 2;
+                    resData.msg = "用户已注册";
+                }
             }
+            console.log(`resData:${resData}`)
+            res.writeHead(200,{'content-type':'text/html,charset=utf-8'});
+            res.end(JSON.stringify(resData),'utf-8');
         })
+        
+        
+        // conn.query(sql,(err,result)=>{
+        //     if(err){
+        //         resData.code = 1;
+        //         resData.msg = "数据库查询失败，请稍后重试";
+        //     } else {
+        //         console.log( `result:${result.length}` );
+        //         res.end(JSON.stringify(result),'utf-8');
+        //     }
+        //     res.end(JSON.stringify(resData),'utf-8');
+        // })
+
+
+
+        
     });
+    
 })
 
 
