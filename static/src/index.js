@@ -11,7 +11,7 @@ import 'src/assets/styles/components.scss';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducers from './reduce/reduce.js';
-import axiosCofig from './axionsconfig';
+// import axiosCofig from './axionsconfig';
 const Store = createStore( reducers );
 ReactDOM.render(
     <Provider store = { Store } >

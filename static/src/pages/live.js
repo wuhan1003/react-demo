@@ -11,8 +11,8 @@ class Live extends Component{
             "flash":true,
             "h5_flv":true,
             // "mp4":"http://200002949.vod.myqcloud.com/200002949_b6ffc.f0.mp4",
-            "m3u8": "http://3891.liveplay.myqcloud.com/live/3891_user_57be0dd4_be2f.m3u8",
-            "rtmp":"rtmp://3891.liveplay.myqcloud.com/live/3891_user_57be0dd4_be2f?bizid=3891&txSecret=99aa77f417be723f2b13e9b1d5a75838&txTime=5AE418B0",
+            "m3u8": "http://dlhls.cdn.zhanqi.tv/zqlive/37119_4ibXM.m3u8",
+            // "rtmp":"rtmp://3891.liveplay.myqcloud.com/live/3891_user_57be0dd4_be2f?bizid=3891&txSecret=99aa77f417be723f2b13e9b1d5a75838&txTime=5AE418B0",
             // "flv": "http://3891.liveplay.myqcloud.com/live/3891_user_57be0dd4_be2f.flv", //增加了一个flv的播放地址，用于PC平台的播放 请替换成实际可用的播放地址
             "autoplay" : true,      //iOS下safari浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的
             "live":true,

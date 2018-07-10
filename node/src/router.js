@@ -4,7 +4,8 @@ const qs = require('querystring');
 const EventEmitter = require('events');
 const zlib = require('zlib');
 const http = require('http');
-// const conn = require('../conn');
+const fs = require('fs')
+;// const conn = require('../conn');
 // conn.connect(err=>console.log('数据库连接失败',err));
 const conn = require('../conn');
 conn.connect(err=>{
@@ -151,7 +152,29 @@ Routers.on('/register',(req,res)=>{
     });
     
 })
-
+Routers.on('/upload',(req,res)=>{
+    let params = '';
+    let resData = {};
+    
+    req.on('data',function(chunk){
+        params += chunk;
+    });
+    req.on('end',()=>{
+        const data = qs.parse(params);
+        const entries = Object.entries(data);
+        for(let [key,val] of entries){
+            val = val.replace(/^data:image\/\w+;base64,/,"");
+            const baseBuffer = Buffer.from(val,'base64');
+            fs.writeFile('../pub/images',baseBuffer,err=>{
+                if(err){
+                    console.log(`写入图片出错：${err}`);
+                }
+            })
+        }
+        res.end(JSON.stringify(data));
+    });
+    
+})
 
 
 
