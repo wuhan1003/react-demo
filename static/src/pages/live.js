@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import flv from 'flv.js';
+const RTMP = require('node-rtmpapi');
+const socket = require('simple-websocket');
+// import WebRtmpPlayer from '../assets/js/sa';
 // import Avatar from '@/avatar';
 class Live extends Component{
     constructor( props ){
@@ -6,13 +10,29 @@ class Live extends Component{
         this.state = {}
     }
     componentDidMount(){
+
+        // const ws = new WebSocket('ws://193.112.57.37:1999');
+        // ws.onopen = function(){
+        //     ws.send('a');
+        //     console.log('数据发送中')
+        // }
+        // ws.onmessage = function(evt){
+        //     console.log(evt)
+        // }
+        //rtmp://58.200.131.2:1935/livetv/hunantv
+
+        // var player = new WebRtmpPlayer('ws://193.112.57.37:1999', 'livetv', 'hunantv', 'rtmp://58.200.131.2:1935/livetv');
+            // player.canvas.style['height'] = '100%';
+            // document.getElementById("test_live").appendChild(player.canvas);
+
+
         const { TcPlayer } = window;
         new TcPlayer('test_live', {
             "flash":true,
             "h5_flv":true,
             // "mp4":"http://200002949.vod.myqcloud.com/200002949_b6ffc.f0.mp4",
-            "m3u8": "http://dlhls.cdn.zhanqi.tv/zqlive/37119_4ibXM.m3u8",
-            // "rtmp":"rtmp://3891.liveplay.myqcloud.com/live/3891_user_57be0dd4_be2f?bizid=3891&txSecret=99aa77f417be723f2b13e9b1d5a75838&txTime=5AE418B0",
+            // "m3u8": "http://3891.liveplay.myqcloud.com/live/3891_user_8f25040f_cef8.m3u8",
+            "rtmp":"rtmp://pili-live-rtmp.kxhflx.com/kxhflx/89465664_20180928145427265",
             // "flv": "http://3891.liveplay.myqcloud.com/live/3891_user_57be0dd4_be2f.flv", //增加了一个flv的播放地址，用于PC平台的播放 请替换成实际可用的播放地址
             "autoplay" : true,      //iOS下safari浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的
             "live":true,
@@ -22,9 +42,41 @@ class Live extends Component{
             
 
         });
+        // this.connect()
     }
+    connect(){
+        //rtmp://3891.liveplay.myqcloud.com/live/3891_user_86415e15_f71b
+        const _this  = this;
+        const ws = new socket('ws://47.98.128.181:3389');
+        
+        ws.onopen = function(){
+            console.log(`ws链接`);
+            RTMP.rtmpSession(ws,true,_this.getSession);
+        }
+        console.log(ws);
+        // ws.onmessage = function(e){
+        //     console.log(e);
+        // }
+    }
+    getSession(session){
+        // console.log(session)
+        // this._rtmpSession = session;
+		// console.log("rtmpSession...cb...");
+		// this._invokeChannel = new RTMP.rtmpChunk.RtmpChunkMsgClass({streamId:5}, {sock: this._sock, Q: session.Q, debug: false});
+		// this._invokeChannel.invokedMethods = {}; //用来保存invoke的次数，以便收到消息的时候确认对应结果
+		// this._videoChannel = new RTMP.rtmpChunk.RtmpChunkMsgClass({streamId:8}, {sock: this._sock, Q: session.Q, debug: false});
+
+		// session.Q.Q(0,this._rtmpConnect.bind(this));
+		// session.Q.Q(0, () =>
+		// {
+		// 	console.log("Begin LOOP");
+		// 	session.msg.loop(this._handleRtmpMessage.bind(this));
+		// });
+    }
+
+
     render(){
-        return(
+        return (
             <section className = "live-container">
                 <section id="test_live"></section>
                 <section className = "live-guest">

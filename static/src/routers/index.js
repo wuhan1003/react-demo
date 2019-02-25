@@ -7,6 +7,7 @@ import Register from 'pages/register';
 import Chat from 'pages/chat';
 import Live from 'pages/live';
 import Upload from 'pages/upload';
+import Lives from 'pages/lives';
 // import TestFx from 'pages/test.fx';
 function Nofound ( props ){
     return <div>404</div>
@@ -49,6 +50,13 @@ const routes = [
             text:'直播a'
         },
         component:Live,
+    },
+    {
+        path:'/lives',
+        meta:{
+            text:'直播列表'
+        },
+        component:Lives,
     },
     {
         path:'/upload',
